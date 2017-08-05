@@ -23,6 +23,19 @@
 
 
 
+{% if thispage == "illustrations" %}
+<ol class="breadcrumb">
+  <li>
+    <a href="index.html">Home</a>
+  </li>
+  <li class="active">
+        Illustrations
+    </li>
+</ol>
+{% endif %}
+
+
+
 {% if thispage == "entities-az" %}
 <ol class="breadcrumb">
   <li>
@@ -31,6 +44,22 @@
   <li class="active">
         Entities A-Z
     </li>
+</ol>
+{% endif %}
+
+
+
+{% if thispage == "tree-view" %}
+<ol class="breadcrumb">
+  <li>
+    <a href="index.html">Home</a>
+  </li>
+  <li>
+        <a href="entities-az.html">Entities</a>
+    </li>
+    <li class="active">
+          Tree View
+      </li>
 </ol>
 {% endif %}
 

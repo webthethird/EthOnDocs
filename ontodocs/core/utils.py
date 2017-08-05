@@ -44,6 +44,7 @@ def build_D3treeStandard(old, MAX_DEPTH, level=1, toplayer=None):
 		# print "*" * level, x.label
 		d['qname'] = x.qname
 		d['name'] = x.bestLabel(quotes=False).replace("_", " ")
+		d['description'] = x.bestDescription(quotes=False).replace("_", " ")
 		d['objid'] = x.id
 		if x.children() and level < MAX_DEPTH:
 			d['size'] = len(x.children()) + 5	 # fake size
