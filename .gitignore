@@ -43,3 +43,6 @@ dev
 venv
 
 .idea
+
+# EthOn HTML build
+EthOnHTML

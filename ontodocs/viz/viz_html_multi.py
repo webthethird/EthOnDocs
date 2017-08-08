@@ -33,8 +33,9 @@ class KompleteViz(VizFactory):
                 "custom",
                 "libs/bootswatch3_2",
                 "libs/bootstrap-3_3_7-dist",
-                "libs/jquery/1_12_4/",
-                "libs/chartjs-2_4_0"
+                "libs/jquery",
+                "libs/chartjs-2_4_0",
+                "libs/d3-v2"
                 ]
         self.theme = validate_theme(theme)
 
@@ -44,12 +45,17 @@ class KompleteViz(VizFactory):
         """
         # INDEX - MAIN PAGE
         contents = self._renderTemplate("html-multi/index.html", extraContext={"theme": self.theme, "index_page_flag" : True})
-        FILE_NAME = "index.html"
+        FILE_NAME = "EthOn_spec.html"
         main_url = self._save2File(contents, FILE_NAME, self.output_path)
 
         # DASHBOARD
         contents = self._renderTemplate("html-multi/statistics.html", extraContext={"theme": self.theme})
         FILE_NAME = "statistics.html"
+        self._save2File(contents, FILE_NAME, self.output_path)
+
+        # ILLUSTRATIONS
+        contents = self._renderTemplate("html-multi/illustrations.html", extraContext={"theme": self.theme})
+        FILE_NAME = "illustrations.html"
         self._save2File(contents, FILE_NAME, self.output_path)
 
         # VIZ LIST
@@ -67,16 +73,47 @@ class KompleteViz(VizFactory):
         FILE_NAME = "entities-az.html"
         self._save2File(contents, FILE_NAME, browser_output_path)
 
+        c_mylist = build_D3treeStandard(0, 99, 1, self.ontospy_graph.toplayer)
+        p_mylist = build_D3treeStandard(0, 99, 1, self.ontospy_graph.toplayerProperties)
+        s_mylist = build_D3treeStandard(0, 99, 1, self.ontospy_graph.toplayerSkosConcepts)
 
+        c_total = len(self.ontospy_graph.classes)
+        p_total = len(self.ontospy_graph.properties)
+        s_total = len(self.ontospy_graph.skosConcepts)
+
+
+        if False:
+            # testing how a single tree would look like
+            JSON_DATA_CLASSES = json.dumps(
+            {'children' :
+                [ {'children' : c_mylist, 'name' : 'Classes', 'id' : "classes" },
+                {'children' : p_mylist, 'name' : 'Properties', 'id' : "properties" },
+                {'children' : s_mylist, 'name' : 'Concepts', 'id' : "concepts" }],
+                'name' : 'Entities', 'id' : "root"
+                }
+                )
+
+        # hack to make sure that we have a default top level object
+        JSON_DATA_CLASSES = json.dumps({'children' : c_mylist, 'name' : 'owl:Thing', 'id' : "None" })
+        JSON_DATA_PROPERTIES = json.dumps({'children' : p_mylist, 'name' : 'Properties', 'id' : "None" })
+        JSON_DATA_CONCEPTS = json.dumps({'children' : s_mylist, 'name' : 'Concepts', 'id' : "None" })
+
+        extra_context = {
+                        "ontograph": self.ontospy_graph,
+    					"TOTAL_CLASSES": c_total,
+    					"TOTAL_PROPERTIES": p_total,
+    					"TOTAL_CONCEPTS": s_total,
+    					'JSON_DATA_CLASSES' : JSON_DATA_CLASSES,
+    					'JSON_DATA_PROPERTIES' : JSON_DATA_PROPERTIES,
+    					'JSON_DATA_CONCEPTS' : JSON_DATA_CONCEPTS,
+                        "theme": self.theme
+                        }
+
+        contents = self._renderTemplate("html-multi/d3tree.html", extraContext=extra_context)
+        FILE_NAME = "entities-tree-view.html"
+        self._save2File(contents, FILE_NAME, browser_output_path)
 
         if self.ontospy_graph.classes:
-            # CLASSES = ENTITIES TREE
-            extra_context = {"ontograph": self.ontospy_graph, "theme": self.theme,
-                            "treetype" : "classes",
-                'treeTable' : formatHTML_EntityTreeTable(self.ontospy_graph.ontologyClassTree())}
-            contents = self._renderTemplate("html-multi/browser/browser_entities_tree.html", extraContext=extra_context)
-            FILE_NAME = "entities-tree-classes.html"
-            self._save2File(contents, FILE_NAME, browser_output_path)
             # BROWSER PAGES - CLASSES ======
             for entity in self.ontospy_graph.classes:
                 extra_context = {"main_entity": entity,
@@ -91,15 +128,6 @@ class KompleteViz(VizFactory):
 
 
         if self.ontospy_graph.properties:
-
-            # PROPERTIES = ENTITIES TREE
-            extra_context = {"ontograph": self.ontospy_graph, "theme": self.theme,
-                            "treetype" : "properties",
-                'treeTable' : formatHTML_EntityTreeTable(self.ontospy_graph.ontologyPropTree())}
-            contents = self._renderTemplate("html-multi/browser/browser_entities_tree.html", extraContext=extra_context)
-            FILE_NAME = "entities-tree-properties.html"
-            self._save2File(contents, FILE_NAME, browser_output_path)
-
             # BROWSER PAGES - PROPERTIES ======
 
             for entity in self.ontospy_graph.properties:
@@ -115,16 +143,6 @@ class KompleteViz(VizFactory):
 
 
         if self.ontospy_graph.skosConcepts:
-
-            # CONCEPTS = ENTITIES TREE
-
-            extra_context = {"ontograph": self.ontospy_graph, "theme": self.theme,
-                            "treetype" : "concepts",
-                'treeTable' : formatHTML_EntityTreeTable(self.ontospy_graph.ontologyConceptTree())}
-            contents = self._renderTemplate("html-multi/browser/browser_entities_tree.html", extraContext=extra_context)
-            FILE_NAME = "entities-tree-concepts.html"
-            self._save2File(contents, FILE_NAME, browser_output_path)
-
             # BROWSER PAGES - CONCEPTS ======
 
             for entity in self.ontospy_graph.skosConcepts:
@@ -135,30 +153,6 @@ class KompleteViz(VizFactory):
                                 }
                 extra_context.update(self.highlight_code(entity))
                 contents = self._renderTemplate("html-multi/browser/browser_conceptinfo.html", extraContext=extra_context)
-                FILE_NAME = entity.slug + ".html"
-                self._save2File(contents, FILE_NAME, browser_output_path)
-
-
-        if self.ontospy_graph.shapes:
-
-            # SHAPES = ENTITIES TREE
-
-            extra_context = {"ontograph": self.ontospy_graph, "theme": self.theme,
-                            "treetype" : "shapes", 'treeTable' : formatHTML_EntityTreeTable(self.ontospy_graph.ontologyShapeTree()) }
-            contents = self._renderTemplate("html-multi/browser/browser_entities_tree.html", extraContext=extra_context)
-            FILE_NAME = "entities-tree-shapes.html"
-            self._save2File(contents, FILE_NAME, browser_output_path)
-
-            # BROWSER PAGES - SHAPES ======
-
-            for entity in self.ontospy_graph.shapes:
-                extra_context = {"main_entity": entity,
-                                "main_entity_type": "shape",
-                                "theme": self.theme,
-                                "ontograph": self.ontospy_graph
-                                }
-                extra_context.update(self.highlight_code(entity))
-                contents = self._renderTemplate("html-multi/browser/browser_shapeinfo.html", extraContext=extra_context)
                 FILE_NAME = entity.slug + ".html"
                 self._save2File(contents, FILE_NAME, browser_output_path)
 
