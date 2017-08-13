@@ -45,7 +45,7 @@ class KompleteViz(VizFactory):
         """
         # INDEX - MAIN PAGE
         contents = self._renderTemplate("html-multi/index.html", extraContext={"theme": self.theme, "index_page_flag" : True})
-        FILE_NAME = "EthOn_spec.html"
+        FILE_NAME = "index.html"
         main_url = self._save2File(contents, FILE_NAME, self.output_path)
 
         # DASHBOARD

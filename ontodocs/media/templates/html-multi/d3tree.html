@@ -359,13 +359,14 @@ function update(vis, tree, diagonal, source, root) {
       .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
       .on("click", function(d) { toggle(d); update(vis, tree, diagonal, d, root); }); // note ref to <root>
 
-  nodeEnter.append("svg:text")
+  nodeEnter.append("svg:a")
+      .attr("xlink:href", function(d) { return d.link })
+      .append("svg:text")
       .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
       .attr("dy", ".35em")
       .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
       .text(function(d) { return d.name; })
       .style("fill-opacity", 1e-6)
-      .on("click", function(d) { showpanel(d.objid); })
 	  .on("mouseover", function(d){
 			d3.select(this).attr("fill", "darkorange");
 			console.log(d);

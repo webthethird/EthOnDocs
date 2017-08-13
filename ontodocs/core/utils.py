@@ -42,7 +42,8 @@ def build_D3treeStandard(old, MAX_DEPTH, level=1, toplayer=None):
 	for x in old:
 		d = {}
 		# print "*" * level, x.label
-		d['qname'] = x.qname
+		d['link'] = x.uri
+		d['qname'] = x.qname.replace(":","")
 		d['name'] = x.bestLabel(quotes=False).replace("_", " ")
 		d['description'] = x.bestDescription(quotes=False).replace("_", " ")
 		d['objid'] = x.id

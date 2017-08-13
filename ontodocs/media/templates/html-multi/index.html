@@ -52,6 +52,9 @@
 
 
       <div class="row">
+        <div class="col-md-12">
+          <p>The EthOn Ethereum ontology, described using W3C RDF Schema and the Web Ontology Language. It is closely aligned with Gavin Wood's Ethereum yellow paper.</p>
+        </div>
 
         {# first column #}
         <div class="col-md-6">
@@ -87,6 +90,40 @@
            {% endfor %}
         {% endif %}
 
+          </div>
+           {# END first column #}
+
+         {# second column #}
+         <div class="col-md-3">
+
+
+           {% if namespaces %}
+             <div class="row">
+               <div class="col-md-12">
+                 <div class="panel panel-default">
+               <div class="panel-heading">
+                 <h3 class="panel-title">Namespaces</h3>
+               </div>
+               <div class="panel-body" style="overflow: auto;">
+                  <dl class="-dl-horizontal" style="--margin-left: -100px;">
+
+                  {% for x, y in namespaces  %}
+                      <dt><span class="label label-info">{{x|default:":"}}</span></dt>
+                      <dd><a href="{{y}}" target="_blank">{{y}}</a></dd>
+
+                  {% endfor %}
+
+                 </dl>
+               </div>
+             </div>
+               </div>
+             </div>
+             {% endif %}
+         </div>
+          {# END second column #}
+
+           {# second column #}
+          <div class="col-md-3">
 
            <div class="row"><div class="col-md-12">
               <div class="panel panel-default">
@@ -116,37 +153,8 @@
 
 
         </div>
-         {# END first column #}
-
-
-        {# second column #}
-        <div class="col-md-6">
-
-
-          {% if namespaces %}
-            <div class="row">
-              <div class="col-md-12">
-                <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Namespaces</h3>
-              </div>
-              <div class="panel-body" style="overflow: auto;">
-                 <dl class="-dl-horizontal" style="--margin-left: -100px;">
-
-                 {% for x, y in namespaces  %}
-                     <dt><span class="label label-info">{{x|default:":"}}</span></dt>
-                     <dd><a href="{{y}}" target="_blank">{{y}}</a></dd>
-
-                 {% endfor %}
-
-                </dl>
-              </div>
-            </div>
-              </div>
-            </div>
-            {% endif %}
-        </div>
          {# END second column #}
+
 
       </div>
 

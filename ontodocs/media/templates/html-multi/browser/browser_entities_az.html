@@ -59,7 +59,7 @@
                {% for each in ontospy_graph.classes  %}
                    <dt><a href="{{each.slug}}.html">{{each.qname}}</a></dt>
                    <dd>
-{#                       {{ each.bestDescription|default:"[no definition]" }}#}
+{#                       {{ each.description|default:"[no definition]" }}#}
                    </dd>
 
                {% endfor %}

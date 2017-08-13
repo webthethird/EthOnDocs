@@ -2,7 +2,7 @@ import ontospy
 from ontodocs.viz.viz_html_multi import *
 
 RDFpath = "https://raw.githubusercontent.com/ConsenSys/EthOn/master/EthOn.rdf"
-outputPath = "EthOnHTML"
+outputPath = "EthOn_spec"
 
 # load current ontology from EthOn github
 g = ontospy.Ontospy(RDFpath)
