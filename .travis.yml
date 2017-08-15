@@ -2,7 +2,7 @@ language: python
 python:
   - "2.7"
 install: "pip install ontodocs -U"
-script: "python newSpecGenerator.py && cp 404.html ${TRAVIS_BUILD_DIR}/spec && touch .nojekyll"
+script: "python newSpecGenerator.py && cp 404.html ${TRAVIS_BUILD_DIR}/spec && touch ${TRAVIS_BUILD_DIR}/spec/.nojekyll"
 deploy:
   provider: pages
   skip_cleanup: true
