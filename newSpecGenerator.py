@@ -8,7 +8,7 @@ class SpecGenerator():
 
     def __init__(self, rdf_path, output_path):
         RDFpath = rdf_path
-        outputPath = "spec"
+        outputPath = output_path
 
         # load current ontology from EthOn github
         g = ontospy.Ontospy(RDFpath)
