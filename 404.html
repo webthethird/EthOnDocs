@@ -9,12 +9,12 @@
 </head>
 <body>
     <script type="text/javascript">
-        var spec_url = 'http://ethon.consensys.net/spec/';
+        var spec_url = 'http://ethon.consensys.net/';
         var pathname = window.location.pathname.split('/');
         console.log(pathname);
         var currentVersion = 0;
         if (pathname[0] != "ethon.consensys.net") {
-            spec_url = 'http://'+pathname[0]+"/spec/";
+            spec_url = 'http://'+pathname[0]+"/";
             console.log(spec_url);
         }
         if (pathname[1] == "") {
