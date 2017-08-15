@@ -2,7 +2,7 @@ language: python
 python:
   - "2.7"
 install: "pip install ontodocs -U"
-script: "python newSpecGenerator.py"
+script: "python newSpecGenerator.py && cp 404.html ${TRAVIS_BUILD_DIR}/spec"
 deploy:
   provider: pages
   skip_cleanup: true
