@@ -3,31 +3,75 @@
 
 {% block navbar %}
 
-    {% with thispage="home" %}
+    {% ifequal docs_title "EthOn: Ethereum Ontology" %}
+      {% with thispage="home" %}
 
-    {% include "navbar.html" %}
+      {% include "navbar.html" %}
 
-    {% endwith %}
+      {% endwith %}
+    {% endifequal %}
+
+    {% ifequal docs_title "EthOn: ERC20 Extension" %}
+      {% with thispage="ERC20-home" %}
+
+      {% include "navbar.html" %}
+
+      {% endwith %}
+    {% endifequal %}
+
+    {% ifequal docs_title "EthOn: Contracts Extension" %}
+      {% with thispage="contracts-home" %}
+
+      {% include "navbar.html" %}
+
+      {% endwith %}
+    {% endifequal %}
 
 {% endblock navbar %}
 
 
 {% block sidebar %}
 
-    {% with thispage="home" %}
-        {% include "sidebar.html" %}
-    {% endwith %}
+    {% ifequal docs_title "EthOn: Ethereum Ontology" %}
+      {% with thispage="home" %}
+          {% include "sidebar.html" %}
+      {% endwith %}
+    {% endifequal %}
+
+    {% ifequal docs_title "EthOn: ERC20 Extension" %}
+      {% with thispage="ERC20-home" %}
+          {% include "sidebar.html" %}
+      {% endwith %}
+    {% endifequal %}
+
+    {% ifequal docs_title "EthOn: Contracts Extension" %}
+      {% with thispage="contracts-home" %}
+          {% include "sidebar.html" %}
+      {% endwith %}
+    {% endifequal %}
 
 {% endblock sidebar %}
 
 
 {% block bodycontent %}
 
+    {% ifequal docs_title "EthOn: Ethereum Ontology" %}
+      {% with thispage="home" %}
+          {% include "breadcrumbs.html" %}
+      {% endwith %}
+    {% endifequal %}
 
-    {% with thispage="home" %}
-        {% include "breadcrumbs.html" %}
-    {% endwith %}
+    {% ifequal docs_title "EthOn: ERC20 Extension" %}
+      {% with thispage="ERC20-home" %}
+          {% include "breadcrumbs.html" %}
+      {% endwith %}
+    {% endifequal %}
 
+    {% ifequal docs_title "EthOn: Contracts Extension" %}
+      {% with thispage="contracts-home" %}
+          {% include "breadcrumbs.html" %}
+      {% endwith %}
+    {% endifequal %}
 
 
         <div class="page-header">
@@ -53,7 +97,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <p>The EthOn Ethereum ontology, described using W3C RDF Schema and the Web Ontology Language. It is closely aligned with Gavin Wood's Ethereum yellow paper.</p>
+          <p>{{ docs_text }}</p>
         </div>
 
         {# first column #}
