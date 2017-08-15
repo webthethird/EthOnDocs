@@ -50,14 +50,14 @@
             }
         }
         else if (pathname.length == 2 && /^[A-Z]/.test(pathname[1])) {
-            window.location.replace(spec_url + pathname[1].toLowerCase() + '.html');
+            window.location.replace(spec_url + 'class-'pathname[1].toLowerCase() + '.html');
         }
         else if (pathname.length == 2 && /^[a-z]/.test(pathname[1])){
-            window.location.replace(spec_url + pathname[1].toLowerCase() + '.html');
+            window.location.replace(spec_url + 'prop-'+pathname[1].toLowerCase() + '.html');
         }
     </script>
 	<div class="cover">
-		<h1>Resource not found <small>Error 404</small></h1>
+		<h1>Resource not found <small>Error 404</+small></h1>
 		<p class="lead">The requested resource could not be found.</p>
 	</div>
 
