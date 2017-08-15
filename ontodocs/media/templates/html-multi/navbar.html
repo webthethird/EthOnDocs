@@ -18,11 +18,14 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li {% ifequal thispage "home" %}class="active"{% endifequal %}><a href="index.html"><code style="font-size: 115%;">{{docs_title}}</code></a></li>
-        {# <li {% ifequal thispage "about" %}class="active"{% endifequal %} ><a href="#">About</a></li>#}
-
-       {# <li><a href="#menu-toggle" id="menu-toggle">Toggle Menu</a></li>#}
-
-
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extensions <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li {% ifequal thispage "home" %}class="active"{% endifequal %}><a href="{% ifnotequal thispage 'home' %}../{% endifnotequal %}index.html">EthOn</a></li>
+            <li {% ifequal thispage "ERC20-home" %}class="active"{% endifequal %}><a href="{% ifnotequal thispage 'home' %}../{% endifnotequal %}ERC20/index.html">ERC20</a></li>
+            <li {% ifequal thispage "contracts-home" %}class="active"{% endifequal %}><a href="{% ifnotequal thispage 'home' %}../{% endifnotequal %}Contracts/index.html">Contracts</a></li>
+          </ul>
+        </li>
         <li {% ifequal thispage "entities-az" %}class="active"{% endifequal %} ><a href="entities-az.html">Entities A-Z</a></li>
         <li {% ifequal thispage "tree-view" %}class="active"{% endifequal %}><a href="entities-tree-view.html">Tree View</a></li>
         <li {% ifequal thispage "statistics" %}class="active"{% endifequal %} ><a href="statistics.html">Statistics</a></li>
@@ -48,23 +51,6 @@
             {% endif %}
           </ul>
       </li>
-{% endif %}
-
-{% if 0 %}
-        <li {% ifequal thispage "visualizations" %}class="active"{% endifequal %} ><a href="visualizations.html">Visualizations</a></li>
-
-          <li class="dropdown" >
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
 {% endif %}
       </ul>
       {% if 0 %}

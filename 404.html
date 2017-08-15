@@ -9,14 +9,10 @@
 </head>
 <body>
     <script type="text/javascript">
-        var spec_url = 'http://ethon.consensys.net/spec/';
+        var spec_url = 'http://ethon.consensys.net/';
         var pathname = window.location.pathname.split('/');
         console.log(pathname);
         var currentVersion = 0;
-        if (pathname[0] != "ethon.consensys.net") {
-            spec_url = 'http://'+pathname[0]+"/spec/";
-            console.log(spec_url);
-        }
         if (pathname[1] == "") {
             window.location.replace(spec_url+"index.html");
         }
@@ -54,14 +50,14 @@
             }
         }
         else if (pathname.length == 2 && /^[A-Z]/.test(pathname[1])) {
-            window.location.replace(spec_url + pathname[1].toLowerCase() + '.html');
+            window.location.replace(spec_url + 'class-'+pathname[1].toLowerCase() + '.html');
         }
         else if (pathname.length == 2 && /^[a-z]/.test(pathname[1])){
-            window.location.replace(spec_url + pathname[1].toLowerCase() + '.html');
+            window.location.replace(spec_url + 'prop-'+pathname[1].toLowerCase() + '.html');
         }
     </script>
 	<div class="cover">
-		<h1>Resource not found <small>Error 404</small></h1>
+		<h1>Resource not found <small>Error 404</+small></h1>
 		<p class="lead">The requested resource could not be found.</p>
 	</div>
 

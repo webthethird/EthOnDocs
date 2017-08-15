@@ -24,11 +24,11 @@ class KompleteViz(VizFactory):
     """
 
 
-    def __init__(self, ontospy_graph, title="", theme=""):
+    def __init__(self, ontospy_graph, title="", theme="", text=""):
         """
         Init
         """
-        super(KompleteViz, self).__init__(ontospy_graph, title)
+        super(KompleteViz, self).__init__(ontospy_graph, title, text)
         self.static_files = [
                 "custom",
                 "libs/bootswatch3_2",
@@ -38,6 +38,7 @@ class KompleteViz(VizFactory):
                 "libs/d3-v2"
                 ]
         self.theme = validate_theme(theme)
+        self.text = text
 
     def _buildTemplates(self):
         """

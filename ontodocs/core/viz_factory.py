@@ -60,8 +60,9 @@ class VizFactory(object):
     Tip: subclass and override as needed.
     """
 
-    def __init__(self, ontospy_graph, title=""):
+    def __init__(self, ontospy_graph, title="", text=""):
         self.title = ''
+        self.text = ''
         self.ontospy_graph = ontospy_graph
         self.static_files = []
         self.static_url = "" # one used in templates
@@ -75,6 +76,7 @@ class VizFactory(object):
         self.templates_root = ONTODOCS_VIZ_TEMPLATES
         self.static_root = ONTODOCS_VIZ_STATIC
         self.title = title or self.infer_best_title()
+        self.text = text or ""
         self.basic_context_data = self._build_basic_context()
 
     def infer_best_title(self):
@@ -186,6 +188,7 @@ class VizFactory(object):
             "ontodocs_version": VERSION,
             "ontospy_graph": self.ontospy_graph,
             "docs_title": self.title,
+            "docs_text": self.text,
             "namespaces": self.ontospy_graph.namespaces,
             "stats": self.ontospy_graph.stats(),
             "ontologies": self.ontospy_graph.ontologies,
